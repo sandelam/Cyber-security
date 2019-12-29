@@ -28,5 +28,4 @@ public class SignupController {
         model.addAttribute("signups",signups);
         return "done";
     }
-
 }
