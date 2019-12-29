@@ -15,18 +15,23 @@ public class SignupController {
     private SignupRepository signupRepository;
 
     @RequestMapping("*")
-    public String defaultMapping() {
+    public String defaultMapping(Model model, HttpSeession httpSession) {
         return "redirect:/form";
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String loadForm() {
+    public String loadForm(Model model HttpSession httpSession) {
         return "form";
     }
-
+    
+    @RequestMapping(value = "/secret", method = RequestMethod.GET)
+    public String redirectURL(@RequestParam String url) throws SQLException {
+        return "redirect:" + url;
+    }                
+    
     @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String submitForm(@RequestParam String name, @RequestParam String address) {
-        signupRepository.save(new Signup(name, address));
+    public String submitForm(@RequestParam String name, @RequestParam String password) throws SQLException {
+        signupRepository.save(new Signup(name, password));
         return "done";
     }
 
